@@ -1,11 +1,16 @@
 import http from 'http';
-import Sequelize from 'sequelize';
+import Sequelize, { Op } from 'sequelize';
+
+import { createNamespace } from 'cls-hooked';
 import 'dotenv/config';
 import app from './src/app.js';
 
 const {
      DB_DATABASE, DB_LOGIN, DB_PASSWORD, DB_HOST, DB_LOG, DB_PORT, DB_TYPE,
 } = process.env;
+
+const namespace = createNamespace('my_namespace');
+Sequelize.useCLS(namespace);
 
 const port = DB_PORT || 3000;
 
@@ -64,15 +69,30 @@ const Author = sequelize.define('author', {
 
 });
 
-Author.sync({ force: true }).then(async () => {
-     const author = await Author.create({
-          username: 'Joanne',
-          lastname: 'Rowling',
-          age: 57,
-          genre: 'Fantasy',
-          book: 'Harry Potter',
-     });
-     console.log(author.toJSON(), '\n\nAuthor added to database');
-}).catch((err) => {
-     console.log(err, 'Author not added to database');
+Author.sync({ alter: true }).then(async () => {
+     try {
+          await sequelize.transaction(async (t) => {
+               const result = await Author.create({
+                    username: 'Edgar',
+                    lastname: 'Lincoln',
+                    age: 60,
+                    genre: 'Fantasy',
+                    book: 'The Book Of Elia',
+               }, { transaction: t });
+               return result;
+          });
+          const authors = await Author.findAll({
+               where: {
+                    [Op.or]: [{
+                         user_id: 1,
+                    },
+                    { user_id: 20 },
+                    ],
+               },
+          });
+
+          console.log(JSON.parse(JSON.stringify(authors)));
+     } catch (error) {
+          console.log(error, 'Author not added to database');
+     }
 });

@@ -1,0 +1,78 @@
+Model.create({data}) = stexcuma tvyal ev avelacnuma databasa kanchelov save() metod@;
+
+Model.bulkCreate([ { name: 'Edgar'}, { name: 'Erik'}]) = stexcuma mi qani tvyalner ev avelacnuma databasa 
+User.bulkCreate([{ username: 'Edgar' },{ username: 'Erik', admin: true }], { fields: ['username'] }); = avelacnuma databasa nshvac field - ov tvyalner@ mnacac ignor en linum
+
+Model.build({data}) = sarquma tvyal sxemayov exemplay bayc chi avelacnum databasa;
+
+data.destroy() = jnjum e databazaic tvyal@;
+
+Model.destroy( {data}) = jnjum e databazayic hamapatasxan tvyalner@
+
+data.reload() = stanum e databazaic tvyali verji tesq@;
+
+data.update({data}) = popoxum e tvyalner@;
+
+data.save(),save({fields:[data]}) = avelacnum e tvyal@ baza kam popuxum e tvyalner@ kam konkrent inch vor tvyal;
+
+data.increment, data.decrement('age', {by: 2}),([age, salary], {by:2}) = avelacnum kam pakasacnum en nshvac tvyalneri qanak@ nshvac tvov;
+
+Model.findAll() = veradarcnum e bolor tvyalner@ tayblic = SELECT * FROM Model
+
+Model.findOne({ id: 1}) = veradarcnum e araji hamapatasxan tvyal@ 
+
+Model.findByPk(1) = veredarcnuma primary key flag unecux arjeq@ ete hamapatasxanuma
+
+findAndCountAll({ where: { data }, offset: 10, limit: 2}); = veradarcnum e bolor hamapatasxan tvyalner@ , karox enq tal offset flag ev limit flag@ , funkcian veradarcnum e hamapatasxan tvyalner@ ev qanak@ obyekti tesqov
+
+findOrCreate({ where: { username: 'Erik' }, defaults: { job: 'Technical Lead JavaScript'}}); = veradarcnuma tvyal ete ka ete voch stexcuma , veradarcnuma zangvac tvyalov ev boolian arjeq ete tvyal@ stexcvel e
+
+Model.findAll({ attributes: 'name', 'age' }) = veradarcnuma bolor tvyalner@ mianyn nshvac attributnerov = SELECT name, age FROM Model
+
+Model.findAll({attributes: { exclude: ['id'] }}) = veradarcnuma bolor tvyalner@ baci nshvac atributic = SELECT ... FROM Model
+
+Model.findAll({ where: { id: 1 }}) = veradarcnuma bolor tvyalner@ vor@ hamapatasxanuma nshvac ketin = SELECT * FROM Model WHERE id = 1
+Model.findAll({ where: { [Op.eq]: { id: 1} }})
+
+Model.findAll({ where: { name: 'Edgar', age: 25 }}) = veradarcnuma bolor tvyalner@ voronq hstakoren hamapatasxanum en nshac keterin = SELECT * FROM Model WHERE name = 'Edgar' AND age = 25;
+Model.findAll({ where: { [Op.and]: { name: 'Edgar', age: 25 }}}) 
+
+Model.findAll({ where: { [Op.or]:[ { name: 'Erik'}, { name: 'Edgar'}]}}) = veradarcnuma nshvac keterin hamapatasxanox tvyalner@ = SELECT FROM Model WHERE name = 'Erik' OR name = 'Edgar';
+Model.findAll({ where: { name: { [Op.or]: ['Erik', 'Edgar']}}})
+
+
+[Op.and]: [{ a: 5 }, { b: 6 }],            // (a = 5) AND (b = 6)
+[Op.or]: [{ a: 5 }, { b: 6 }],             // (a = 5) OR (b = 6)
+
+      // Basics
+      [Op.eq]: 3,                              // = 3
+      [Op.ne]: 20,                             // != 20
+      [Op.is]: null,                           // IS NULL
+      [Op.not]: true,                          // IS NOT TRUE
+      [Op.or]: [5, 6],                         // (someAttribute = 5) OR (someAttribute = 6)
+
+      // Number comparisons
+      [Op.gt]: 6,                              // > 6
+      [Op.gte]: 6,                             // >= 6
+      [Op.lt]: 10,                             // < 10
+      [Op.lte]: 10,                            // <= 10
+      [Op.between]: [6, 10],                   // BETWEEN 6 AND 10
+      [Op.notBetween]: [11, 15],               // NOT BETWEEN 11 AND 15
+
+      // Other operators
+
+      [Op.in]: [1, 2],                         // IN [1, 2]
+      [Op.notIn]: [1, 2],                      // NOT IN [1, 2]
+
+      [Op.startsWith]: 'hat',                  // LIKE 'hat%'
+      [Op.endsWith]: 'hat',                    // LIKE '%hat'
+
+Project.findAll({ limit: 10 }); = veradarcnum tvelnaer@ nshvac qanakov
+
+Project.findAll({ offset: 8 }); = veradarcnuma tvyalner@ bac toxnelov nshvac qanak@
+
+Project.findAll({ offset: 5, limit: 5 }); = veradarcnuma tvyalner@ bac toxnelov ev nshvac qanakov 
+
+Model.max({age}) = veradarcnuma amenabardz qanak@
+Model.max({age}) = veradarcnuma amenacacr qanak@
+Model.max({age}) = veradarcnuma @ndhanur gumar@
