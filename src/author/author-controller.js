@@ -21,7 +21,7 @@ export const getAuthorC = async (req, res, next) => {
 };
 export const createAuthorC = async (req, res, next) => {
      try {
-          const { body } = req.body;
+          const { body } = req;
           const got = await createAuthorS(body);
           res.status(200).json(got);
      } catch (err) {
@@ -30,7 +30,8 @@ export const createAuthorC = async (req, res, next) => {
 };
 export const updateAuthorC = async (req, res, next) => {
      try {
-          const { params, body } = req.params;
+          const { params, body } = req;
+
           const got = await updateAuthorS(params.id, body);
           res.status(200).json(got);
      } catch (err) {
@@ -39,6 +40,7 @@ export const updateAuthorC = async (req, res, next) => {
 };
 export const deleteAuthorC = async (req, res, next) => {
      try {
+          console.log('Controller');
           const { id } = req.params;
           const got = await deleteAuthorS(id);
           res.status(200).json(got);

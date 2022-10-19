@@ -1,4 +1,11 @@
-import { getGenreR, getGenresR } from './genre-repository.js';
+import {
+     createGenreR, getGenreR, getGenresR, getGenreByPropertyR, deleteGenreR, updateGenreR,
+} from './genre-repository.js';
+
+const getGenreByPropertyS = async (data) => {
+     const got = await getGenreByPropertyR(data);
+     return got;
+};
 
 export const getGenresS = async () => {
      const got = await getGenresR();
@@ -11,17 +18,20 @@ export const getGenreS = async (id) => {
      return got;
 };
 export const createGenreS = async (body) => {
-     const got = await getGenreR(body);
-
+     const { genre } = body;
+     const exist = await getGenreByPropertyS({ genre });
+     if (exist?.genre === genre) throw new Error('Error but Genre exist');
+     const got = await createGenreR(body);
      return got;
 };
 export const updateGenreS = async (id, body) => {
-     const got = await getGenreR(id, body);
+     const got = await updateGenreR(id, body);
 
      return got;
 };
 export const deleteGenreS = async (id) => {
-     const got = await getGenreR(id);
+     console.log(id);
+     const got = await deleteGenreR(id);
 
      return got;
 };

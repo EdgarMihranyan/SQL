@@ -14,14 +14,14 @@ export const getGenreC = async (req, res, next) => {
      try {
           const { id } = req.params;
           const got = await getGenreS(id);
-          res.status(200).json(got);
+          res.status(200).json(got || { msg: `User in id:${id} not a found` });
      } catch (err) {
           next(err);
      }
 };
 export const createGenreC = async (req, res, next) => {
      try {
-          const { body } = req.body;
+          const { body } = req;
           const got = await createGenreS(body);
           res.status(200).json(got);
      } catch (err) {

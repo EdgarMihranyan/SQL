@@ -21,7 +21,7 @@ export const getBookC = async (req, res, next) => {
 };
 export const createBookC = async (req, res, next) => {
      try {
-          const { body } = req.body;
+          const { body } = req;
           const got = await createBookS(body);
           res.status(200).json(got);
      } catch (err) {
